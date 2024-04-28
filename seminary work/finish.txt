@@ -1,0 +1,441 @@
+#include <iostream>//biblioteka
+#include <cstring>//biblioteka
+#include <fstream>//Biblioteka za rabota so datoteki
+#include <iomanip>//biblioteka
+using namespace std;
+
+class Zemjodelska_Apteka//Osnovna klasa 
+{
+	protected:
+	char ime_na_apteka[30];///ime na aptekata
+	char grad[40];//gradot kaj sto se naogja aptekata
+	char ime_na_ulica[40];//imeto na ulicata kaj sto se naogja aptekata
+	int broj_na_adresa;//brojot na ulicata 
+	char sopstvenik[250];//Gazdata na aptekata
+	int vozrast_na_sopstvenik;//Kolku godini ima gazdata
+	public:
+		Zemjodelska_Apteka(){}//konstruktor
+		Zemjodelska_Apteka(const char*imenaapt,const char *gra,const char* imenaul,int brojadre,const char* gazda,int godini)//Konstruktor so pocetnik parametri
+		{
+			strcpy(ime_na_apteka,imenaapt);
+			strcpy(grad,gra);
+			strcpy(ime_na_ulica,imenaul);
+			broj_na_adresa=brojadre;
+			strcpy(sopstvenik,gazda);
+			vozrast_na_sopstvenik=godini;
+		}
+		void Postavi_Podatoci();
+		void Prikazi_Podatoci();//funkcija za prikazuvanje na vnesenite podatoci
+		
+
+		~Zemjodelska_Apteka(){cerr<<"Destruktor";}
+};
+void Zemjodelska_Apteka::Postavi_Podatoci()
+{
+
+			cout<<"Vnesi ime na zemjodelskata apteka :";
+			cin>>ime_na_apteka;
+			cout<<"\n"<<"Vnesi Grad : ";
+			cin>>grad;
+			cout<<"\n"
+			<<"Vnesi ime na ulica : ";
+			cin>>ime_na_ulica;
+			cout<<"Vnesi broj na ulicata : ";
+			cin>>broj_na_adresa;
+			cout<<endl<<"Vnesi sopstvenik : ";
+			cin>>sopstvenik;
+			cout<<"\n";
+			cout<<"Vnesi godini na sopstvenikot : ";
+			cin>>vozrast_na_sopstvenik;
+			cout<<"\n\n\n\n";
+			
+			ofstream dat;
+	dat.open("Firma.txt",ios::out);
+	dat<<"           *DETALNI INFORMACII ZA FIRMATA* \n\n"<<"FIRMA : "<<ime_na_apteka<<endl
+	<<"GRAD: "<<grad<<endl<<"ULICA : "<<ime_na_ulica<<" BR. :"<<broj_na_adresa<<endl<<"GAZDA: "<<sopstvenik<<" "<<vozrast_na_sopstvenik;
+    dat.close();
+
+
+
+
+		}
+void Zemjodelska_Apteka::Prikazi_Podatoci()
+{
+	cout<<"\n\n\n";
+	cout<<"           *DETALNI INFORMACII ZA FIRMATA* \n";
+			cout<<"Ime na Zemjodelskata Apteka :"<<ime_na_apteka<<"\n"<<" Grad : "<<grad<<"\n"<<"Ulica "<<ime_na_ulica<<" "<<broj_na_adresa<<endl;
+			cout<<"Sopstvenik :"<<sopstvenik<<"\n"<<"Vozrast :"<<vozrast_na_sopstvenik<<"\n\n\n"<<endl;
+		}
+		
+		
+		
+		
+class Semenski_Materijal: Zemjodelska_Apteka//Ovaa izvedena klasa sodrzi informacii za semeskiot materijal
+{
+	protected:
+	char vid_na_pcenica[15];
+	char vid_na_jacmen[15];
+	char vid_na_tritikale[15];
+	char vid_na_orizova_arpa[20];
+	int cena_na_pcenica;
+	int cena_na_jacmen;
+	int cena_na_tritikale;
+	int cena_na_orizova_arpa; 
+	int kolicina_pcenica, kolicina_jacmen,kolicina_tritikale,kolicina_oriz;
+	public:
+	Semenski_Materijal(){}///Default Konstruktor 
+	Semenski_Materijal(const char*pcen,const char*jacm,const char*trit,const char* oriz,int cenap,int cenaj,int cenat,int cenaoriz,int kolp,int kolj,int kolt,int kolo)//Konstruktor so pocetni parametri 
+	{
+		strcpy(vid_na_pcenica,pcen);
+		strcpy(vid_na_jacmen,jacm);
+		strcpy(vid_na_tritikale,trit);
+		strcpy(vid_na_orizova_arpa,oriz);
+		cena_na_pcenica=cenap;
+		cena_na_jacmen=cenaj;
+		cena_na_tritikale=cenat;
+		cena_na_orizova_arpa=cenaoriz;
+		kolicina_pcenica=kolp;
+		kolicina_jacmen=kolj;
+		
+		
+	}
+	void Postavi();//Funkcija za postavuvanje na podatocite od tastatura
+	
+	void Pecatenje_Podatoci_Za_Semenski_Materijal();
+
+	void Kolicina_na_Semenski_Materijal();
+	
+	 void presmetaj_naracka1();
+	
+	bool operator>(Semenski_Materijal &f){}
+	 
+	~Semenski_Materijal(){cout<<"destruktor";}
+};
+void Semenski_Materijal::Postavi()
+{
+	 
+		cout<<"\n\n";
+		cout<<"Vnesi sorta na pcenica :\n ";
+		cin>>vid_na_pcenica;
+		cout<<"Vnesi sorta na jacmen :\n ";
+		cin>>vid_na_jacmen;
+		cout<<"Vnesi sorta na tritikale :\n ";
+		cin>>vid_na_tritikale;
+		cout<<"Vnesi sorta na orizova arpa : \n";
+		cin>>vid_na_orizova_arpa;
+		cout<<endl<<endl;
+		cout<<"Cena na pcenica : \n";
+		cin>>cena_na_pcenica;
+		cout<<"Cena na jacmen : \n";
+		cin>>cena_na_jacmen;
+		cout<<"Cena na tritikale : \n";
+		cin>>cena_na_tritikale;
+		cout<<"Cena na orizova arpa : \n";
+		cin>>cena_na_orizova_arpa;
+		cout<<"\n\n";
+			ofstream dat;
+	dat.open("Semenska.txt",ios::out);
+	dat<<"***SORTI***"<<endl<<"SORTA PCENICA : "<<vid_na_pcenica<<"|  CENA : "<<cena_na_pcenica<<endl
+	<<"SORTA JACMEN : "<<vid_na_jacmen<<"| CENA : "<<cena_na_jacmen<<endl<<"SORTA TRITIKALE "<<vid_na_tritikale
+	<<"| CENA :"<<cena_na_tritikale<<endl<<"SORTA ORIZ : "<<vid_na_orizova_arpa<<"| CENA :"<<cena_na_orizova_arpa<<endl;;
+    dat.close();
+		}
+void Semenski_Materijal::Pecatenje_Podatoci_Za_Semenski_Materijal()
+	{
+		cout<<"\n\n";
+		cout<<"Sorta :"<<vid_na_pcenica<<"    "<<" Cena : "<<cena_na_pcenica<<" denari!"<<endl;
+		cout<<"Sorta :"<<vid_na_jacmen<<"   "<<" Cena : "<<cena_na_jacmen<<" denari!"<<endl;
+		cout<<"Sorta :"<<vid_na_tritikale<<"    "<<" Cena : "<<cena_na_tritikale<<" denari!"<<endl;
+		cout<<"Sorta :"<<vid_na_orizova_arpa<<"     "<<" Cena : "<<cena_na_orizova_arpa<<" denari!"<<endl;
+		cout<<"\n\n";
+	}
+void Semenski_Materijal::Kolicina_na_Semenski_Materijal()
+{
+		
+		cout<<"Vnesi kolicina na pcenica : ";
+		cin>>kolicina_pcenica;
+		cout<<"Vnesi kolicina na jacmen : ";
+		cin>>kolicina_jacmen;
+		cout<<"Vnesi kolicina na tritikale : ";
+		cin>>kolicina_tritikale;
+		cout<<"Vnesi kolicina na orizova arpa : ";
+		cin>>kolicina_oriz;
+		cout<<"\n\n";
+	}
+void Semenski_Materijal::presmetaj_naracka1()
+{
+		cout<<"\n\n";
+		cout<<"Presmetka za pcenica : "<<kolicina_pcenica*cena_na_pcenica<<" denari!"<<endl;
+		cout<<"Presmetka za jacmen : "<<kolicina_jacmen*cena_na_jacmen<<" denari!"<<endl;
+		cout<<"Presmetka za tritikale : "<<kolicina_tritikale*cena_na_tritikale<<" denari!"<<endl;
+		cout<<"Presmetka za oriz : "<<kolicina_oriz*cena_na_orizova_arpa<<" denari!"<<endl<<endl<<endl;
+		cout<<"      VKUPNO ZA PLAKJANJE       "<<endl;
+		cout<<"              "<<kolicina_pcenica*cena_na_pcenica+kolicina_jacmen*cena_na_jacmen+
+		kolicina_tritikale*cena_na_tritikale+kolicina_oriz*cena_na_orizova_arpa<<" denari!"<<endl<<endl<<endl;
+		cout<<"\n\n";
+			ofstream dat;
+	dat.open("Naracka.txt",ios::out);
+	dat<<"***SORTI***"<<endl<<"PCENICA : "<<kolicina_pcenica<<" | CENA : "<<cena_na_pcenica<<" ||| VKUPNO ZA PCENICA : "<<kolicina_pcenica*cena_na_pcenica<<" DENARI !"<<endl
+	<<"JACMEN : "<<kolicina_jacmen<<" | CENA : "<<cena_na_jacmen<<" VKUPNO ZA JACMEN : "<<kolicina_jacmen*cena_na_jacmen<<" DENARI !"<<endl
+	<<"SORTA TRITIKALE "<<kolicina_tritikale<<" | CENA :"<<cena_na_tritikale<<" VKUPNO ZA TRITIKALE : "<<kolicina_tritikale*cena_na_tritikale<<" DENARI !"<<endl
+	<<"SORTA ORIZ : "<<kolicina_oriz<<" | CENA :"<<cena_na_orizova_arpa<<" VKUPNO ZA ORIZ : "<<kolicina_oriz*cena_na_orizova_arpa<<" DENARI !"<<endl
+	<<endl<<"        VKUPNO ZA PLAKANJE : "<<kolicina_pcenica*cena_na_pcenica+kolicina_jacmen*cena_na_jacmen+
+		kolicina_tritikale*cena_na_tritikale+kolicina_oriz*cena_na_orizova_arpa<<" denari!"<<endl;
+    dat.close();
+	}
+	
+///////////////////////////////////FINISH //////////////////////////////////////
+	
+class Preparati: Zemjodelska_Apteka
+{
+	protected:
+		char preparad_za_poljedelski_kulturi[20];
+		char preparad_za_gradinarski_kulturi[20];
+		char preparad_za_lozovi_nasadi[20];
+		
+	public:
+		Preparati(){}
+		Preparati(const char*poljedelski,const char*gradinarski,const char*lozje)
+		{
+			strcpy(preparad_za_poljedelski_kulturi,poljedelski);
+			strcpy(preparad_za_gradinarski_kulturi,gradinarski);
+			strcpy(preparad_za_lozovi_nasadi,lozje);
+		}
+		void Vnesi_Preparati();
+		
+			void Prikazi_Podatociiii();
+			
+			 int Presmetaj_Preparat1();
+			
+		
+};
+void Preparati::Vnesi_Preparati()
+{
+			cout<<"\n\n";
+			cout<<"Vnesi preparad za poljedelski kulturi ";
+			cin>>preparad_za_poljedelski_kulturi;
+			cout<<endl;
+			cout<<"Vnesi preparad za gradinarski kulturi ";
+			cin>>preparad_za_gradinarski_kulturi;
+			cout<<endl;
+			cout<<"Vnesi preparad za lozov nasad ";
+			cin>>preparad_za_lozovi_nasadi;
+			cout<<"\n\n";
+			ofstream dat;
+	dat.open("Preparati.txt",ios::out);
+	dat<<"POLJEDELSKI PREPARAT : "<<preparad_za_poljedelski_kulturi<<" | CENA : 2150 DENARI!"<<endl
+	<<"GRADINARSKI PREPARAT : "<<preparad_za_gradinarski_kulturi<<" | CENA : 4500 DENARI !"<<endl
+	<<"LOZOV PREPARAT : "<<preparad_za_lozovi_nasadi<<" | CENA : 3200 DENARI ! "<<endl;
+    dat.close();
+			}
+void Preparati::Prikazi_Podatociiii()
+{
+	cout<<"\n\n";
+				cout<<"Preparat za poljedelski kulturi :"<<" "<<preparad_za_poljedelski_kulturi<<endl;
+				cout<<"Preparad za gradinarski kulturi :"<<" "<<preparad_za_gradinarski_kulturi<<endl;
+				cout<<"Preparat za lozov nasad :"<<" "<<preparad_za_lozovi_nasadi<<endl;
+				cout<<"\n\n";
+			}
+int Preparati::Presmetaj_Preparat1()
+{
+	cout<<"\n\n";
+				cout<<"Cenata na "<<preparad_za_poljedelski_kulturi<<" iznesuva 2150 denari .\n ";
+				cout<<"Cenata na "<<preparad_za_gradinarski_kulturi<<" iznesuva 4500 denari .\n ";
+				cout<<"Cenata na "<<preparad_za_lozovi_nasadi<<" iznesuva 3200 denari .\n ";
+				cout<<"\n\n";
+}
+
+//////////////////////////FINISH////////////////////
+
+class Gjubrivo: Zemjodelska_Apteka
+{
+	protected:
+		char mineralno[20];
+		char tecno[20];
+		int kolicina1;
+		int kolicina2;
+		int cena1,cena2;
+	public:
+		Gjubrivo(){}
+		Gjubrivo(const char*min,const char*tec,int kolll,int kol2,int cen1,int cen2)
+		{
+			strcpy(mineralno,min);
+			strcpy(tecno,tec);
+			kolicina1=kolll;
+			kolicina2=kol2;
+			cena1=cen1;
+			cena2=cen2;
+		}
+		void Vnesi_Gjubrivo();
+		
+		void Pecati_Gjubrivo();
+		
+		
+		virtual int Presmetaj_gjubrivo();
+		
+	~Gjubrivo(){cout<<"Destruktor";}
+	
+};
+void Gjubrivo::Vnesi_Gjubrivo()
+{
+	cout<<"\n\n";
+			cout<<"Vnesi mineralno gjubrivo :";
+			cin>>mineralno;
+			cerr<<endl;
+			cout<<"Vnesi tecno gjubrivo : ";
+			cin>>tecno;
+			cout<<endl;
+			cout<<"Vnesi kolicina na mineralno gjubrivo \n";
+			cin>>kolicina1;
+			cout<<"Vnesi kolicina na tecno gjubrivo : \n";
+			cin>>kolicina2;
+			cout<<"Cena na mineralno gjubrivo : \n";
+			cout<<endl;
+			cin>>cena1;
+			cout<<"Cena na tecno gjubrivo :\n";
+			cin>>cena2;
+			cout<<"\n\n";
+			
+			ofstream dat;
+	dat.open("Prihrana.txt",ios::out);
+	dat<<"MINERALNO GJUBRIVO : "<<mineralno<<" | CENA : "<<cena1<<endl
+	<<"TECNO GJUBRIVO : "<<tecno<<" | CENA : "<<cena2<<endl;
+	
+    dat.close();
+		}
+		void Gjubrivo::Pecati_Gjubrivo()
+			{
+				cout<<"\n\n";
+			cout<<"Mineralno Gjubrivo : "<<mineralno<<" : "<<cena1<<" denari!."<<endl<<"Tecno Gjubrivo : "<<tecno<<" : "<<cena2<<" denari!"<<endl;
+			cout<<"\n\n";
+		}
+		int Gjubrivo::Presmetaj_gjubrivo()
+		{
+			int a;
+			cout<<"PRESMETKA ZA MINERALNOTO GJUBRIVO  "<<kolicina1*cena1<<" denari!"<<endl;
+			cout<<"PRESMETKA ZA TECNO GJUBRIVO  "<<kolicina2*cena2<<" denari!"<<endl;
+		do{
+		
+		cout<<"1 dokolku sakate da go kupite!\n";
+		cout<<"2 dokolku ne sakate!\n";
+		cin>>a;
+		if(a==1)
+		
+			{
+				cout<<"Uspesno napravivte naracka, za da izlezete pretisnete 3!\n";
+			}
+			
+			if(a==2)
+			{
+				cout<<"Odbivte da napravite naracka, za da izlezete pretisnete 3!\n";
+			}
+		}while(a!=3);
+		}
+class Isklucokot {
+public:
+	char isk[80];
+	Isklucokot() { *isk = 0; }
+	Isklucokot(const char *i) { strcpy(isk, i); }
+};
+ostream& write(const char* s, streamsize n);
+
+template<class X>void Sortiraj(X niza[],int n){
+	X p,max;
+	int i,j,maxpoz;
+	for(i=0;i<n-1;++i){
+	max=niza[i];
+	maxpoz=i;
+	for(j=i+1;j<n;++j){
+		if(niza[j]>max){
+			max=niza[j];
+			maxpoz=j;
+		}
+		if(i!=maxpoz){
+			p=niza[i];
+			niza[i]=niza[maxpoz];
+			niza[maxpoz]=p;
+		}}}
+	}
+int main()
+{
+	int n,m;
+	Zemjodelska_Apteka apteka;
+	Semenski_Materijal materijal;
+	Preparati hemija;
+	Gjubrivo prihrana;
+	
+
+
+		 do{
+        cout<<"-----ZEMJODELSKA APTEKA------"<<endl;
+        cout<<"1.Vnesi podatoci za firmata"<<endl;
+        cout<<"2.Vnesi semenski materijal"<<endl;
+        cout<<"3.Vnesi preparati"<<endl;
+        cout<<"4.Vnesi Gjubrivo"<<endl;
+        cout<<"5.Pecati podatoci za firmata"<<endl;
+        cout<<"6.Pecati semenski materijal"<<endl;
+        cout<<"7.Pecati preparati"<<endl;
+        cout<<"8.Pecati gjubrivo"<<endl;
+        cout<<"9 Presmetka za semenska"<<endl;
+        cout<<"10 Naracka na gjubrivo"<<endl;
+        cout<<"11.Izlez"<<endl;
+        cin>>n;
+		if(n==1){
+		apteka.Postavi_Podatoci();
+			}
+			if(n==2)
+			{
+				materijal.Postavi();	
+				materijal.Kolicina_na_Semenski_Materijal();			
+				
+				}
+			if(n==3)
+			{
+				hemija.Vnesi_Preparati();
+			}
+			if(n==4)
+			{
+				prihrana.Vnesi_Gjubrivo();
+			}
+			if(n==5)
+			{
+				apteka.Prikazi_Podatoci();
+			}
+			if(n==6)
+			{
+				materijal.Pecatenje_Podatoci_Za_Semenski_Materijal();
+			}
+			if(n==7)
+			{
+				hemija.Prikazi_Podatociiii();
+				cout<<endl<<endl;
+				hemija.Presmetaj_Preparat1();
+				cout<<endl<<endl;
+			}
+			if(n==8)
+			{
+			prihrana.Pecati_Gjubrivo();	
+			}
+			if(n==9)
+			{
+				materijal.presmetaj_naracka1();
+			}
+			if(n==10)
+			{
+				prihrana.Presmetaj_gjubrivo();
+			}
+			}
+			while(n<11);
+			
+	try {
+		if(n>=12)
+		       throw Isklucokot("Izborot na menito ne moze da e pogolem od 11" );		       
+	}
+	catch (Isklucokot I) { 
+		cout << I.isk <<endl;
+	}
+	
+	
+	return 0;
+        	
+          }                   
