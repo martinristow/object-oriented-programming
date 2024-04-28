@@ -1,0 +1,61 @@
+lab 8 kod 
+#include<iostream>
+#include<cstring>
+using namespace std;
+class Vozilo{
+	protected:
+	char tip[25];
+	int br_trkala, br_patnici;
+	public:
+		Vozilo(){cout<<"Konstruktor na osnovnata klasa Vozilo\n";}
+		void set(char* t, int bt,int bp){
+			strcpy(tip,t);
+			br_trkala=bt;
+			br_patnici=bp;
+		}
+		void Pecati(){
+			cout<<"Tip: "<<tip<<endl;
+			cout<<"Broj na trkala: "<<br_trkala<<endl;
+			cout<<"Broj na patnici: "<<br_patnici<<endl;}
+		char* vratiTip(){return tip;}
+		~Vozilo(){cout<<"Destruktor na osnovnata klasa Vozilo\n";}
+};
+class Avtomobil:private Vozilo{
+	protected:
+		char marka[15], model[15];
+		int godina;
+		public:
+			Avtomobil(char* t,int bt,int bp){set(t,bt,bp);
+			cout<<"Konstruktor na izvedenata klasa Avtomobil\n";}
+			void set_A(char* m, char* md, int g){
+				strcpy(marka,m);
+				strcpy(model,md);
+				godina=g;
+			}
+			void Pecati_A(){Pecati();
+				cout<<"Marka: "<<marka<<endl;
+				cout<<"Model: "<<model<<endl;
+				cout<<"Godina na proizvodstvo: "<<godina<<endl;
+			}
+			~Avtomobil(){cout<<"Destruktor na izvedenata klasa Avtomobil\n";}
+};
+int main(){
+	char tip[25], marka[15],model[15];
+	int bt,bp,god;
+	cout<<"Tip: ";
+	cin>>tip;
+	cout<<"Broj na trkala: ";
+	cin>>bt;
+	cout<<"Broj na patnici: ";
+	cin>>bp;
+	cout<<"Marka: ";
+	cin>>marka;
+	cout<<"Model: ";
+	cin>>model;
+	cout<<"Godina: ";
+	cin>>god;
+	Avtomobil p(tip,bt,bp);
+	p.set_A(marka,model,god);
+	p.Pecati_A();
+	return 0;
+}
